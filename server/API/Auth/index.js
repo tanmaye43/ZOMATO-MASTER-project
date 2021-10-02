@@ -28,12 +28,12 @@ Router.post ("/signup", async (req, res) => {
         return res.json({ error: "User already exits!"});
       }
 
-      // hash password 
+      // hash Password 
       const bcryptSalt = await bcrypt.genSalt(8);
 
       const hashedPassword = await bcrypt.hash(password, bcryptsalt);
 
-      // save to DB
+      // Save to DB
       await UserModel.create({
         ... req.body.credentials,
         password: hashedPassword,
