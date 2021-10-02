@@ -7,6 +7,11 @@ const ImageSchema = new mongoose.Schema({
         }, 
     ],
     
-});
+},
+{
+    timestamps: true,
+}
+);
 
-export const Imagemodel = mongoose.model("Images",ImageSchema);
+
+export const ImageModel = mongoose.model("Images",ImageSchema);
