@@ -4,7 +4,7 @@ import helmet from "helmet";
 
 const zomato = express();
 
-//Application Middlewares
+//APplication Middlewares
 zomato.use(express.json());
 zomato.use(express.urlencoded({ extended: false}));
 zomato.use(helmat());
