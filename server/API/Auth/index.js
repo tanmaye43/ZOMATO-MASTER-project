@@ -20,7 +20,7 @@ Router.post ("/signup", async (req, res) => {
     try {
       const { email, password, fullname, phoneNumber } = req.body.credentials;
 
-      // check whether email exist
+      // check Whether email exist
       const checkUserByEmail = await UserModel.findOne({ email });
       const checkUserByPhone = await UserModel.findOne({ phoneNumber });
       
