@@ -1,10 +1,10 @@
 //Library
-import exprees from "exprees";
+import express from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 //Model
-import { UserModel, Usermodel } from "../../database/user";
+import { UserModel } from "../../database/user";
 
 const Router = express.Router();
 
@@ -31,16 +31,16 @@ Router.post ("/signup", async (req, res) => {
       // Hash Password 
       const bcryptSalt = await bcrypt.genSalt(8);
 
-      const hashedPassword = await bcrypt.hash(password, bcryptsalt);
+      const hashedPassword = await bcrypt.hash(password, bcryptSalt);
 
       // Save tO DB
       await UserModel.create({
         ... req.body.credentials,
         password: hashedPassword,
-      })
+      });
 
       // generate JWT auth token
-      const token = jwt.sign({ user:{ fullname, email }}, "ZomatoAPP");
+      const token = jwt.sign({ user: { fullname, email }}, "ZomatoAPP");
 
       // return
       return res.status(200).json({ token, status:"success" });
