@@ -10,7 +10,7 @@ const Router = express.Router();
 
 /*
 Route   /signup
-des      signup wth email and password
+des      Register new user
 params   none
 access   public
 method   post
@@ -18,29 +18,13 @@ method   post
 
 Router.post ("/signup", async (req, res) => {
     try {
-      const { email, password, fullname, phoneNumber } = req.body.credentials;
-
-      // Check Whether email exist
-      const checkUserByEmail = await UserModel.findOne({ email });
-      const checkUserByPhone = await UserModel.findOne({ phoneNumber });
-      
-      if (checkUserByEmail || checkUserByPhone) {
-        return res.json({ error: "User already exits!"});
-      }
-
-      // Hash Password 
-      const bcryptSalt = await bcrypt.genSalt(8);
-
-      const hashedPassword = await bcrypt.hash(password, bcryptSalt);
+      await UserModel.findByEmailAndPhone(req.body.credentials);
 
       // Save tO DB
-      await UserModel.create({
-        ... req.body.credentials,
-        password: hashedPassword,
-      });
-
+      const newUser = await UserModel.create(req.body.credentials);
+       
       // generate JWT auth token
-      const token = jwt.sign({ user: { fullname, email }}, "ZomatoAPP");
+      const token = newUser.generateJwtToken();
 
       // return
       return res.status(200).json({ token, status:"success" });
@@ -49,4 +33,6 @@ Router.post ("/signup", async (req, res) => {
    }
 });
 
-export default Router;
+
+export default Rout
+

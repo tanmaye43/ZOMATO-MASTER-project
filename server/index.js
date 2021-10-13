@@ -6,7 +6,7 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 
-// microservice routes
+// Microservice routes
 import Auth from "./API/Auth";
 
 // Database connection
@@ -33,3 +33,4 @@ zomato.listen (4000, () =>
    console.log("Sever is running , but database connection failed...")
  )
 );
+
